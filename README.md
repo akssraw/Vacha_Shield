@@ -1,73 +1,57 @@
-# Welcome to your Lovable project
+﻿# Vacha-Shield
 
-## Project info
+Vacha-Shield is an AI deepfake voice detection system for web and mobile-assisted call monitoring.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## Quick Start
 
-## How can I edit this code?
+1. Install dependencies:
+   `pip install -r requirements.txt`
+2. Run backend:
+   `python app.py`
+3. Open:
+   `http://127.0.0.1:5000`
 
-There are several ways of editing your application.
+## Core Files
 
-**Use Lovable**
+- `app.py` - Flask API + UI serving
+- `deepfake_detector.py` - Hybrid inference and scoring logic
+- `feature_extraction.py` - PCEN + Delta feature pipeline
+- `model.py` - AudioCNN architecture
+- `train_knowledge_base.py` - Continuous learning retraining
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+## Architecture
 
-Changes made via Lovable will be committed automatically to this repo.
+See `docs/architecture.png`.
 
-**Use your preferred IDE**
+## Notes
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- Include `model.pth` and `model_calibration.json` for inference.
+- Install `pip install -r requirements-optional.txt` only if you need live microphone features like `call_monitor.py`.
+- Do not commit logs, tunnel binaries, or backup checkpoints.
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## Hackathon Cloud Demo
 
-Follow these steps:
+Fastest path: deploy this repo to Railway or Render using the included `Dockerfile`.
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+1. Push the repo to GitHub with `model.pth`, `model_calibration.json`, and the built `lovable-project-*/dist` folder included.
+2. Create a new Railway or Render web service from that repo.
+3. No custom start command is needed because the container boots with Gunicorn.
+4. After deploy, open `/health` to confirm the model loaded.
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+Optional environment variables:
+- `GROQ_API_KEY`
+- `GROQ_MODEL`
+- `SEMANTIC_OVERRIDE_ENABLED`
+- `DEFAULT_ANALYSIS_PROFILE`
+- `ALERT_MIN_THRESHOLD`
 
-# Step 3: Install the necessary dependencies.
-npm i
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+## Curated Training
 
-**Edit a file directly in GitHub**
+- List approved data sources: `python sync_approved_sources.py --list`
+- Sync automatic human corpora into the registry: `python sync_approved_sources.py --sync human_yesno human_librispeech_dev_clean --limit 50`
+- Register manually downloaded Hindi human corpora: `python sync_approved_sources.py --register human_common_voice_hi --from-dir "C:\path\to\commonvoice_hi" --limit 300`
+- Register manually downloaded AI datasets like WaveFake or ASVspoof: `python sync_approved_sources.py --register ai_wavefake --from-dir "C:\path\to\dataset" --limit 200`
+- Train with approved sources plus generated English/Hindi/Hinglish clone audio: `python train_internet_model.py --approved_human_sources all --approved_ai_sources all`
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+See `docs/curated_sources.md` for the guarded data-ingestion flow.
