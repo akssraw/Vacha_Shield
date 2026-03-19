@@ -22,9 +22,6 @@ def extract_dual_channel_from_waveform(
             return None
 
         audio = np.asarray(audio, dtype=np.float32)
-        max_amp = float(np.max(np.abs(audio))) if audio.size else 0.0
-        if max_amp > 0.0:
-            audio = librosa.util.normalize(audio)
 
         # 10ms frame hop @ 16kHz, tuned for speech anti-spoofing.
         mel = librosa.feature.melspectrogram(
