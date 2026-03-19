@@ -1,0 +1,30 @@
+﻿__pycache__/
+*.pyc
+*.log
+.env
+
+# Runtime artifacts
+temp_uploads/
+flagged_calls/
+
+# Local datasets (keep out of repo unless sharing tiny samples)
+continuous_learning_dataset/
+data/approved_sources/
+data/training_runs/
+
+# Backups and heavy binaries
+model_backup_*.pth
+ngrok*
+cloudflared*
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Frontend build cache
+lovable-project-*/node_modules/
+
+# Docker/runtime leftovers
+.docker/

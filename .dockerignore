@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+*.log
+.env
+.git/
+.gitignore
+.docker/
+temp_uploads/
+flagged_calls/
+continuous_learning_dataset/
+data/
+mobile-android/
+lovable-project-*/node_modules/
+lovable-project-*/src/
+lovable-project-*/public/
+lovable-project-*/package-lock.json
+lovable-project-*/bun.lock
