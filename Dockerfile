@@ -38,9 +38,10 @@ COPY --chown=appuser:appuser mobile.js ./static/
 COPY --chown=appuser:appuser index.html ./templates/
 COPY --chown=appuser:appuser mobile.html ./templates/
 
-USER appuser
-RUN mkdir -p temp_uploads flagged_calls continuous_learning_dataset
+RUN mkdir -p temp_uploads flagged_calls continuous_learning_dataset \
+    && chown -R appuser:appuser temp_uploads flagged_calls continuous_learning_dataset
 
+USER appuser
 EXPOSE 7860
 
 CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:${PORT:-7860} --workers 1 --threads 8 --timeout 180 app:app"]
