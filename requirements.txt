@@ -1,9 +1,10 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
 Flask==3.0.0
 Flask-Cors==4.0.0
 Flask-SocketIO==5.6.1
 librosa==0.10.1
-torch==2.1.0
-torchaudio==2.1.0
+torch==2.1.0+cpu
+torchaudio==2.1.0+cpu
 numpy==1.26.0
 werkzeug==3.0.0
 requests==2.31.0
